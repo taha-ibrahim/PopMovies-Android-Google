@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sorting_choice">
+        <item>Popularity</item>
+        <item>Highest Rated</item>
+        <item>Favourites</item>
+    </string-array>
+
+    <string-array name="sorting2_choice">
+        <item>popularity.desc</item>
+        <item>top_rated</item>
+        <item>favourites</item>
+    </string-array>
+
+
+</resources>
