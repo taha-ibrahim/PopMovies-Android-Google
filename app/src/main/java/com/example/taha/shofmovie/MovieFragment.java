@@ -37,11 +37,15 @@ import java.util.ArrayList;
 public class MovieFragment extends Fragment  {
 
 
-    public static int LOADER = 0;
-    private ArrayList<Movie> mAdapter;
-    private ImageAdapter mImageAdapter;
-    View rootView;
-    GridView gridview;
+    vedInstanceState) {
+
+
+        public static int LOADER = 0;
+    public static int RELOAD;
+    private static ArrayList<Movie> mAdapter;
+    //private ImageAdapter mImageAdapter;
+    private static View rootView;
+    private static GridView gridview;
 
 
     public MovieFragment (){}
@@ -52,16 +56,22 @@ public class MovieFragment extends Fragment  {
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
+        rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         gridview = (GridView) rootView.findViewById(R.id.gridView);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-        String sorting = prefs.getString(getString(R.string.sorting_preference),
-                getString(R.string.sorting_preference_default));
-        mAdapter = new ArrayList<Movie>();
-        mImageAdapter = new ImageAdapter(rootView.getContext(), mAdapter);
-        FetchMovie ft = new FetchMovie(getActivity());
-        ft.execute(sorting);
-
+       // mImageAdapter = new ImageAdapter(rootView.getContext(), mAdapter);
+        if(RELOAD == 0)
+        {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
+            String sorting = prefs.getString(getString(R.string.sorting_preference),
+                    getString(R.string.sorting_preference_default));
+            mAdapter = new ArrayList<Movie>();
+            FetchMovie ft = new FetchMovie(getActivity());
+            ft.execute(sorting);
+        }
+        else
+        {
+            gridview.setAdapter(new ImageAdapter(getActivity(), mAdapter));
+        }
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
