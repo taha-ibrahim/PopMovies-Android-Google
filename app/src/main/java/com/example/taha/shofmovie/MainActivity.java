@@ -16,38 +16,41 @@ public class MainActivity extends ActionBarActivity  {
 
 // the api key got from movie api
 
-    public static final String API_KEY = "" ;
+       public static final String API_KEY = "" ;
 
     /////
 
     public static String mSorting;
     public static Boolean mTwoPane;
-    MovieFragment mainfrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSorting = Utility.getPreferredLocation(this);
         setContentView(R.layout.activity_main);
-        mainfrag = new MovieFragment();
-        if(savedInstanceState == null)
-        {
+        mSorting = Utility.getPreferredLocation(this);
+
             if (findViewById(R.id.Detail_Movie) != null) {
                 mTwoPane = true;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Detail_Movie, new DetailFragment())
-                        .commit();
-            }
-            else
-            {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.Detail_Movie, new DetailFragment())
+                            .commit();
+            }else {
                 mTwoPane = false;
             }
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, mainfrag)
-                    .commit();
-        }
-    }
 
+        if (savedInstanceState == null) {
+            MovieFragment.RELOAD = 0;
+        }
+        else {
+            MovieFragment.RELOAD = 1;
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new MovieFragment())
+                .commit();
+
+    }
+    
     @Override
 
 
